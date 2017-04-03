@@ -1,0 +1,74 @@
+2		! shinohara start point (1: x_1^0, 2: x_2^0, 3: x_1^1, 4: x_2^2)
+1.06000000000	! a0 
+0.20300000000	! b0 (lowest allowed value for b) 
+0.20800000000	! bmax (highest allowed start value for b, set to bmaxx if >bmaxx)
+0.30000000000	! bmaxx (highest allowed overall value for b)
+1000		! brakno (zbrak intervals - needed for a0>q/p or bracs=0 or zbrac-failure)
+1.0e-12		! absolute acc of xroot searched
+2.0e-5		! absolute acc of yroot searched (set to 10*xacc if <xacc)
+300		! max number of xroots searched by zbrak
+/home/knfuchss/research/data/ntic9-10_			.out2
+1		! number of q/p pairs below
+9		10
+11467           12454
+48575		52756
+205767		223478
+18553           20150	       ! 18554           20151
+30021           32606	       ! 30021           32605
+48575		52756
+78596           85362		! 78596           85361
+127171          138118		! 127171          138117
+205767		223478
+15640999        16987268
+! 25	871643		946668
+! 28	3692339		4010150
+! 31	15640999	16987268
+! 34	66256335	71959222
+! 37	280666339	304824156
+! 40	1188921691	1291255846
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

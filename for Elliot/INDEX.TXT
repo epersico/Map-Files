@@ -1,0 +1,15 @@
+
+ntmaps: semi-working bifurcation curve programs (bca?) and dipfinder
+(dfbca), working "dipfinder", "f_iter?" comparing Amit's and several of my
+versions of that function (f(y) and f(b) versions), "findallorbits" to
+find periodic orbits for phase space plots, "findorbits" first y(b) plot
+finder, "f_shino" plotting the function used for indicator curves "meander-windno?" finding the winding number for
+shinohara points, "meander-windno-shino?" in particular for computing
+shinohara diagram, "ntstmap" phase space plots of standard NT-map,
+"ntstmapexcerpt" latest version of "ntstmap" with selection of parts of
+phase space to be output, "po-etc?" periodic orbit finder (semi-working),
+"rootby" new finder for b(y) plots, "rootyb" same as y(b) plot,
+"windno-profile?" to compute winding number profiles
+
+nummethods: subroutines from numerical recipes
+

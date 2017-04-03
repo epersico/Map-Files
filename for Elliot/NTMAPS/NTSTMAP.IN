@@ -1,0 +1,67 @@
+0.9474			! a (0...2pi)	
+0.211895592814655694	! b (0...2pi)
+5000	1		! n (# iterations), skip in output
+-0.1500000000		! j0
+-1.20000000000		! th0 (if <-i.0 then use ith shinopoint)
+0.0050000000		! dj
+0.0800000000		! dth
+51			! jloops
+1			! thloops
+/home/knfuchss/research/data/tmp/testmap.out
+
+/home/knfuchss/research/data/regions7_8/zoneb3_5.out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

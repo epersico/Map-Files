@@ -1,0 +1,17 @@
+2		! shinohara start point (1: x_1^0, 2: x_2^0, 3: x_1^1, 4: x_2^2)
+0.02000000000	! a0 
+0.99990000000	! amax
+0.00010000000	! da 
+0.00000000000	! b0 (lowest allowed value for b) 
+1.00000000000	! bmax (highest allowed start value for b, set to bmaxx if >bmaxx)
+2.00000000000	! bmaxx (highest allowed overall value for b)
+100		! brakno (zbrak intervals - needed for a0>q/p or bracs=0 or zbrac-failure)
+1.0e-11		! absolute acc of xroot searched
+2.0e-8		! absolute acc of yroot searched (set to 10*xacc if <xacc)
+1.0e-6		! bracs, initial bracket opening for zbrac (if 0: always use zbrak)
+100		! max number of xroots searched by zbrak
+10.0		! if zbrac fails, use zbrak with bmax=bold+m*(a-aold)*this
+1.0e-6		! tolerance for determining splitoff between curves
+/home/knfuchss/research/data/lowshino1/test	     .s3	     	! shino out
+/home/knfuchss/research/data/bifc/ntbc25_28.s3				! bifc in
+/home/knfuchss/research/data/diptest.s3.out				! sh-bc split out

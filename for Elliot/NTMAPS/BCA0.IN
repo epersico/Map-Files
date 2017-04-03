@@ -1,0 +1,70 @@
+0				! sln (1: I_0^0, 2: I_0^1, 3: I_1^0, 4: I_1^1, 0: all)
+0.918  1.15			! a range
+0.0001				! a step 
+-0.5 0.5			! yrange
+0.001				! ystep
+0.0				! min b
+1.2				! end b
+500	5			! # b-brackets, # of extrema-branches
+1.0e-2		1.0e-7		! distance factor for mn-b-bracket from a-bracket
+1000				! steps until next mod
+/home/knfuchss/research/data/tmp/bcatest
+1				! number of q/p pairs below
+12	13
+
+0				! sln (1: I_0^0, 2: I_0^1, 3: I_1^0, 4: I_1^1, 0: all)
+0.918  0.921			! a range
+0.000001			! a step 
+-0.5 0.5			! yrange
+0.001				! ystep
+0.0				! min b
+0.6				! end b
+500	5			! # b-brackets, # of extrema-branches
+1.0e-2		1.0e-7		! distance factor for mn-b-bracket from a-bracket
+1000				! steps until next mod
+/home/knfuchss/research/data/recpaperdata/bcazoomb
+1				! number of q/p pairs below
+7	8
+8	9
+83    125
+135   203
+35     53
+10     11
+8	9
+4	5
+5	6
+6	7
+3	4
+9       10
+1599	1700
+16	17
+1568    1657
+1034    1123
+151     164
+77	85
+8	9
+703    800 
+703    801
+704    801
+59	70
+60	71
+
+
+0.9473486965  0.94734869656		! a range for 8/9 cascade?
+
+
+66256335	71959222
+11467           12454
+18553           20150	       ! 18554           20151
+30021           32606	       ! 30021           32605
+48575		52756
+78596           85362		! 78596           85361
+127171          138118		! 127171          138117
+205767		223478
+15640999        16987268
+! 25	871643		946668
+! 28	3692339		4010150
+! 31	15640999	16987268
+! 34	66256335	71959222
+! 37	280666339	304824156
+! 40	1188921691	1291255846

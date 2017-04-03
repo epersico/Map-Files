@@ -1,0 +1,313 @@
+0.35   0.450858831580	!(a,b)  
+-0.5    0.5	! xstart, xend
+-0.8    0.8	! ystart, yend
+100000	1	! n (# iterations), skip in output
+/home/knfuchss/research/data/oddshino/phshtest1_3.out
+4			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1	0.0
+-2.1	0.0
+-3.1	0.0
+-4.1	0.0
+
+1.05   0.0457125 ! 0.0457100870447	! 0.04570344805623	!(a,b)  
+-0.5    0.5	! xstart, xend
+-0.8    0.8	! ystart, yend
+100000	1	! n (# iterations), skip in output
+/home/knfuchss/research/data/oddshino/phshtest1_1.out
+4			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1	0.0
+-2.1	0.0
+-3.1	0.0
+-4.1	0.0
+
+
+0.9757564464000000000   0.1878717490007890102 !(a,b)  
+-0.0006    0.0006		! xstart, xend 0.341984846
+-0.8    0.8			! ystart, yend0.
+15000000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/newnmtest00a.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0  -0.1260112016346369440
+
+0.9757564464000000000   0.1878717490007891328 !(a,b)  
+-0.00001    0.00001			! xstart, xend 0.341984846
+-0.8    0.8			! ystart, yend0.
+15000000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/newnmtest00b.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0  -0.1260112015186767863
+
+0.9757564464000000000   0.1878717490007890393 !(a,b)  
+-0.00001    0.00001			! xstart, xend 0.341984846
+-0.8    0.8			! ystart, yend0.
+15000000	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/newnmtest00.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0  -0.1260112016986168898
+
+0.975756500   0.1878719946390402012 !(a,b)  
+-0.5    0.5			! xstart, xend 0.341984846
+-0.8    0.8			! ystart, yend0.
+45000000	10000			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/nomeanderphsp-ovw3.out
+3			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0  -0.1260113891594126889
+0.0  -0.126011389
+0.0  -0.12601138
+
+0.9757564464   0.1878717490007889357 !(a,b)  
+-0.5    0.5			! xstart, xend 0.341984846
+-0.8      0.8			! ystart, yend0.
+15000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/nomeanderphsp-ovw2.out
+11			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1 0.0
+0.0 -0.1260112006619778462
+0.5  0.1260112006619778462
+0.0  -0.12
+0.0  -0.13
+0.5   0.12
+0.5   0.13
+-0.027	-0.2
+-0.027	-0.21
+-0.0205	-0.2
+-0.0185	-0.2
+
+0.9757564464   0.1878717490007889357 !(a,b)  
+0.34910    0.34912		! xstart, xend 
+0.53332    0.53334		! ystart, yend0.
+150000000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/nomeanderphsp-zoom2.s3
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0 -0.1260112006619778462      ! <-s1 
+!s2: (0.5,0.4833897915) 
+!s3: (0.34910716399, 0.5333272016)
+!s4: (0.01601547840, -0.0893358175)
+
+0.9757564464   0.1878717490007889357 !(a,b)  
+-0.5    0.5			! xstart, xend 0.341984846
+-0.8      0.8			! ystart, yend0.
+15000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/nomeanderphsp-ovw.out
+7			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1 0.0
+0.0 -0.1260112006619778462
+0.5  0.1260112006619778462
+0.0  -0.12
+0.0  -0.13
+0.5   0.12
+0.5   0.13
+
+0.975756447   0.1878717517504883678  ! (a,b) 0.975756448 0.1878717563333207519  
+-0.5    0.5			! xstart, xend 0.341984846
+-0.8      0.8			! ystart, yend0.
+500000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/calcs/testphsps0.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0 -0.1260112054672269095
+0.0 -0.1260112107774914465
+
+0.975756447   0.1878717517504883678  ! (a,b) 0.975756448 0.1878717563333207519  
+-0.0000001    0.0000001			! xstart, xend 0.341984846
+-0.1262      -0.1260		! ystart, yend0.
+500000000	1			! n (# iterations), skip in output
+/home/knfuchss/research/data/nomeanderbu/calcs/testphsps3.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+0.0 -0.1260112054672269095
+0.0 -0.1260112107774914465
+
+1.0645342888500000001   0.2094081479246039242  ! (a,b) bcl 0.201576999394121907
+-0.00001      0.00001			! xstart, xend 0.341984846
+-0.550153    -0.5501505			! ystart, yend0.
+1500000000	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/meanderbu/new/testphsps3.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+0.0 -0.5501519531910655244
+
+1.064534289 0.209408148058813 ! (a,b) 
+0.34197     0.342005			! xstart, xend 
+0.597902    0.59791			! ystart, yend0.
+50000000	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/meanderbu/phasespaceshearless.out
+1			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+
+
+
+
+0.94	       0.2018      ! (a,b) 1
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-l.out
+22			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42531563829
+0.00000000000  -0.33060473056
+0.00000000000  -0.29550630852
+0.00000000000  -0.10662078464
+0.50000000000   0.10662078464
+0.50000000000   0.29550630852
+0.50000000000   0.33060473056
+0.50000000000   0.42531563829
+0.0	       -0.42
+0.0	       -0.331
+0.0	       -0.33
+0.0	       -0.31
+0.0	       -0.2
+0.0	       -0.05
+0.5	        0.42
+0.5	        0.331
+0.5	        0.33
+0.5	        0.31
+0.5	        0.2
+0.5	        0.05
+
+
+0.94	       	0.202155  ! (a,b) rcl 0.202155
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-rcl.out
+18			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42518770969
+0.00000000000  -0.34056015787
+0.00000000000  -0.28365291751
+0.00000000000  -0.10877537564
+0.50000000000   0.10877537564
+0.50000000000   0.28365291751
+0.50000000000   0.34056015787
+0.50000000000   0.42518770969
+0.0	       -0.26
+0.0	       -0.42
+0.0	       -0.17
+0.0	       -0.05
+0.5	        0.26
+0.5	        0.42
+0.5	        0.17
+0.5	        0.05
+
+
+0.94	       0.2036      ! (a,b) 2
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-2.out
+18			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42445413780
+0.00000000000  -0.36283030774
+0.00000000000  -0.25269734495
+0.00000000000  -0.11871440031
+0.50000000000   0.11871440031
+0.50000000000   0.25269734495
+0.50000000000   0.36283030774
+0.50000000000   0.42445413780
+0.0	       -0.23
+0.0	       -0.363
+0.0	       -0.43
+0.0	       -0.054
+0.5	        0.23
+0.5	        0.363
+0.5	        0.43
+0.5	        0.054
+
+
+0.94	       	0.20515  ! (a,b) rcm 0.20515
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-rcm.out
+16			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42310290503
+0.00000000000  -0.37870103770
+0.00000000000  -0.22450058034
+0.00000000000  -0.13294270450
+0.50000000000   0.13294270450
+0.50000000000   0.22450058034
+0.50000000000   0.37870103770
+0.50000000000   0.42310290503
+0.0	       -0.43
+0.0	       -0.2
+0.0	       -0.055
+0.5	        0.43
+0.5	        0.2
+0.5	        0.055
+
+
+0.94	       0.2059      ! (a,b) 3
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-3.out
+20			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42209075119
+0.00000000000  -0.38544041335
+0.00000000000  -0.20913018797
+0.00000000000  -0.14285000747
+0.50000000000   0.14285000747
+0.50000000000   0.20913018797
+0.50000000000   0.38544041335
+0.50000000000   0.42209075119
+0.0	       -0.22
+0.0	       -0.386
+0.0	       -0.28
+0.0	       -0.43
+0.0	       -0.05
+0.5	        0.22
+0.5	        0.28
+0.5	        0.386
+0.5	        0.43
+0.5	        0.05
+
+0.94	       	0.2067917     ! (a,b) bcm 0.206792729122106242
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-bcm.out
+20			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.00000000000  -0.42030454043
+0.00000000000  -0.39334319241
+0.00000000000  -0.17419194138
+0.00000000000  -0.17198361710
+0.50000000000   0.17198361710
+0.50000000000   0.17419194138
+0.50000000000   0.39334319241
+0.50000000000   0.42030454043
+0.0	       -0.43
+0.5	        0.43
+0.0	       -0.171
+0.5	        0.171
+0.0	       -0.24
+0.0	       -0.27
+0.0	       -0.44
+0.5	        0.24
+0.5	        0.27
+0.5	        0.44
+
+0.94	       	0.2081084     ! (a,b) bcu 0.208109091049388675
+2500	1		! n (# iterations), skip in output
+/home/knfuchss/research/data/nstdscen-odd/xy-bcu.out
+16			! # of (x,y) pairs below ( <(-i): shino-point)
+-1.1		0.0
+-2.1		0.0
+0.45409632602   0.18395000467
+0.45377838778   0.18577962364
+0.95377838778  -0.18577962364
+0.95409632602  -0.18395000467
+0.454	        0.18
+0.954	       -0.18
+0.0	       -0.16
+0.0	       -0.22
+0.0	       -0.25
+0.0	       -0.44
+0.5	        0.16
+0.5	        0.22
+0.5	        0.25
+0.5	        0.44
+
+
+
+
+
+
+

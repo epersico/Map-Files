@@ -1,0 +1,175 @@
+In-File:
+
+2		! shinohara start point (1: x_1^0, 2: x_2^0, 3: x_1^1, 4: x_2^2)
+17389		! q (periodic orbit lift)
+18376		! p (periodic orbit period, assumed EVEN!)
+0.60000000000	! a0 
+0.99000000000	! amax
+0.00010000000	! da 
+0.00000000000	! b0 (lowest allowed value for b) 
+5.00000000000	! bmax (highest allowed value for b)
+1.0e-3		! db (initial zbrak interval - only needed for a0>q/p or bracs=0)
+1.0e-11		! absolute acc of root searched
+1.0e-7		! bracs, initial bracket opening for zbrac (if 0: always use zbrak)
+/home/knfuchss/research/data/even-shino/r16.out
+
+
+LucLucy:
+
+real    0m19.567s
+user    0m18.894s
+sys     0m0.565s
+
+
+Solar:
+
+1:19.86 elapsed 
+76.78 user 
+0.08 system 
+96%CPU (0avgtext+0avgdata 0maxresident)k
+0inputs+0outputs (122major+14minor)pagefaults 0swaps
+
+
+Linux1: (1 other computation running)
+
+real    0m17.868s
+user    0m14.860s
+sys     0m0.020s
+
+
+Linux2: (1 other computation running)
+
+real    0m53.073s
+user    0m52.190s
+sys     0m0.160s
+
+
+Linux3: 
+
+real    0m14.902s
+user    0m14.880s
+sys     0m0.000s
+
+
+Linux4: 
+
+real    0m14.892s
+user    0m14.880s
+sys     0m0.000s
+
+
+Linux5: 
+
+real    0m14.927s
+user    0m14.900s
+sys     0m0.010s
+
+
+Linux6: 
+
+real    0m14.886s
+user    0m14.870s
+sys     0m0.010s
+
+
+Linux7: 
+
+real    0m14.903s
+user    0m14.870s
+sys     0m0.000s
+
+
+Linux8: (2 other computations running)
+
+real    0m20.843s
+user    0m14.890s
+sys     0m0.000s
+
+
+Linux9: (2 other computations running)
+
+real    0m20.834s
+user    0m14.900s
+sys     0m0.000s
+
+
+Linux10: (1 other computation running)
+
+real    0m17.866s
+user    0m14.870s
+sys     0m0.000s
+
+
+Linux11: (1 other computation running)
+
+real    0m17.459s
+user    0m14.870s
+sys     0m0.020s
+
+ 
+Linux12: (2 other computations running)
+
+real    0m20.807s
+user    0m14.860s
+sys     0m0.010s
+
+
+Twist: (3 other computations running)
+
+real    0m22.302s
+user    0m18.620s
+sys     0m0.010s
+
+
+Shout:
+
+real    0m18.549s
+user    0m18.540s
+sys     0m0.000s
+
+
+LucLucy: (no optimaization: gcc -lm even-shino.c -o even-shino)
+
+real    0m22.890s
+user    0m21.961s
+sys     0m0.612s
+
+
+
+
+
+Infile2:
+
+1		! shinohara start point (1: x_1^0, 2: x_2^0, 3: x_1^1, 4: x_2^2)
+28657		! q (periodic orbit lift)
+46368		! p (periodic orbit period, assumed EVEN!)
+0.60000000000	! a0 
+0.61900000000	! amax
+0.00001000000	! da 
+0.00000000000	! b0 (lowest allowed value for b) 
+5.00000000000	! bmax (highest allowed value for b)
+1.0e-3		! db (initial zbrak interval - only needed for a0>q/p or bracs=0)
+1.0e-11		! absolute acc of root searched
+1.0e-7		! bracs, initial bracket opening for zbrac (if 0: always use zbrak)
+/home/knfuchss/research/data/even-shino/r16.out
+
+
+LucLucy - even-shino:
+
+real    0m11.658s
+user    0m11.423s
+sys     0m0.007s
+
+
+LucLucy - bifurcationcurve:
+
+knfuchss@LucLucy:~/research/bifc-nt> time ./bifurcation-curve
+# new =0 or old =1 ??  0
+# give m, period, symm_line_type, a_step, a_max, b_step, y_range, a_step_min:
+28657 46368 1 0.00001 0.619 0.001 0.0001 0.00001
+# output filename:     testtime.out
+
+
+real    1m22.512s
+user    1m7.590s
+sys     0m0.043s

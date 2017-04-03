@@ -1,0 +1,4 @@
+Optimization causes core dump: use
+
+gcc -O3 -fno-gcse -fno-strength-reduce -lm bca.c -o bca
+

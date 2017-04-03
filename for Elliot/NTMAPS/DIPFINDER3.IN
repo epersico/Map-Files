@@ -1,0 +1,53 @@
+0.02000000000	! a0 
+1.05000000000	! amax
+0.00010000000	! da 
+0.00000000000	! b0 (lowest allowed value for b) 
+1.00000000000	! bmax (highest allowed start value for b, set to bmaxx if >bmaxx)
+2.00000000000	! bmaxx (highest allowed overall value for b)
+100		! brakno (zbrak intervals - needed for a0>q/p or bracs=0 or zbrac-failure)
+1.0e-11		! absolute acc of xroot searched
+2.0e-8		! absolute acc of yroot searched (set to 10*xacc if <xacc)
+1.0e-6		! bracs, initial bracket opening for zbrac (if 0: always use zbrak)
+100		! max number of xroots searched by zbrak
+10.0		! if zbrac fails, use zbrak with bmax=bold+m*(a-aold)*this
+1.0e-8		! tolerance for determining splitoff between curves
+/home/knfuchss/research/data/lowshino1/test	     .s1	     	! shino out
+/home/knfuchss/research/data/diptest.s1.out				! sh-bc split out
+36		! number of bifc-infiles below
+/home/knfuchss/research/data/bifc/ntbc5_6.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc57_68.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc43_50.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc19_22.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc26_30.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc33_38.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc40_46.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc54_62.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc7_8.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc23_26.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc25_28.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc9_10.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc11_12.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc13_14.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc15_16.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc17_18.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc19_20.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc21_22.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc23_24.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc25_26.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc27_28.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc29_30.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc31_32.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc33_34.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc35_36.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc37_38.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc39_40.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc41_42.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc43_44.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc49_50.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc55_56.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc59_60.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc63_64.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc81_82.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc89_90.s1				! bifc in
+/home/knfuchss/research/data/bifc/ntbc109_110.s1			! bifc in
+

@@ -1,0 +1,54 @@
+- dipfinder:
+
+  input: (even period) bif-curve, (a,b)-range, shino-pt., split threshold
+  output: even shino-curve of same p/q, (a,b) for which both curves split
+
+- dipfinder2:
+  
+  same as dipfinder, but for sevearl bif-curves at once, automatically finds
+  shinohara point for which curves correspond
+
+- even-shino:
+
+  finds even shinohara curve numerically
+
+- even-shino2:
+
+  same as even-shino, but uses more sophisticated bracketing/interpolation
+
+- even-shino2a:
+
+  same as even/shino2, but keeps x-value small (controlled 
+  mod 1 instead of lift)
+
+- even-shino2b:
+
+  combines xroot and yroot (doesn't work)
+
+- find1_1fractions:
+
+  recursion to find all even period fractions below 1/1 with a certain
+  minimal/maximal spacing
+
+- findorbits: 
+
+  find orbits of period q/p along a symmetry line, varying a or b
+
+- f_iter: 
+
+  show f_iter, the function of which minima/zeros have to be found for
+  bif-curve/findorbits
+
+- meander-windno:
+
+  finds the winding number of the orbits starting with the shinohara points,
+  varying a, b, in grids or along bif-curve
+
+- ntstmap:
+
+  non-twist standard map
+
+- windo-profile:
+
+  finds winding numbers for a y-range for x on a symmetry line, or parallel to
+  it
