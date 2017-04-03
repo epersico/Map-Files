@@ -9,8 +9,8 @@
 1.00000000000	! upper end of zbrak interval (if <= lower: zbrac with b=0 start guess)
 500		! divisions for zbrak interval 
 2		! number of outfiles (1: basics, 2: full m/n orbits, 3: full ?/n orbits
-/Users/epersico/Google\ Drive/GitHub/Map\ Files/for\ Elliot/NTMAPS/data/nstdscen-odd/orbits_3.out
-/Users/epersico/Google\ Drive/GitHub/Map\ Files/for\ Elliot/NTMAPS/data/nstdscen-odd/orbits_3.orbits
+./data/test/orbits_3.out
+./data/test/orbits_3.orbits
 /tmp/findallorbits.allorbits
 
 ! if zbrak interval length=0, override zbrak interval to be (-0.5, 0.5)

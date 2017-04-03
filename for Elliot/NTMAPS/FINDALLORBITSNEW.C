@@ -7,7 +7,8 @@
 #include <string.h>
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 
-const char *infilename="findallorbits.in", outfilename[4][180];
+const char *infilename="findallorbits.in";
+char outfilename[4][180];
 
 void makeinitials(void);
 void prepoutfiles(void);
@@ -32,7 +33,8 @@ long double rtbis(long double (*)(long double), long double, long double, long d
 long double pi;
 long double a0, b0, acc, lacc, eqd, brakl0, braku0;
 long double xorbs[ROOT_NO], yorbs[ROOT_NO];
-int  sln, n, m, brakn, outfiles;
+int  sln, outfiles;
+long int n, m, brakn;
 void (*map)(long double *, long double *, long double, long double);
 FILE *fl1, *fl2;
 
@@ -46,7 +48,7 @@ int main(int argc, char **argv)
 
   /* read input */
   makeinitials();
-
+  printf("50\n");
   /* prepare output files */
   fl1=fopen(outfilename[0], "w");
   if (outfiles>1) fl2=fopen(outfilename[1], "w");
@@ -72,7 +74,7 @@ int main(int argc, char **argv)
 	  fprintf(fl1,"%10.5Lf %6d %6d %6d\n\n", phalf, meql, idorb, idorbiter);
       }      
   }
-
+  printf("75\n");
   /*  limits of shino point inverse orbits */
   map=&invntmapstep;
   for (sln=1;sln<=4;sln++) {
@@ -133,7 +135,7 @@ int main(int argc, char **argv)
       fprintf(fl1,"\n");
   }
     
-
+  printf("137\n");
   fclose(fl1);
   if (outfiles>1) fclose(fl2);
   exit(0); 
@@ -153,7 +155,7 @@ void makeinitials(void)      /* read and adjust initial values */
   
   fscanf(fl,"%Lf", &a0); NL(fl, dummy);       /* start a */
   fscanf(fl,"%Lf", &b0); NL(fl, dummy);       /* start b */
-  fscanf(fl,"%d", &m); NL(fl, dummy);        /* m */
+  fscanf(fl,"%ld", &m); NL(fl, dummy);        /* m */
   fscanf(fl,"%ld", &n); NL(fl, dummy);        /* period n */
   fscanf(fl,"%Le", &acc); NL(fl, dummy);      /* absolute root acc */
   fscanf(fl,"%Le", &lacc); NL(fl, dummy);     /* shino exp acc */
@@ -161,9 +163,10 @@ void makeinitials(void)      /* read and adjust initial values */
   fscanf(fl,"%Lf", &brakl0); NL(fl, dummy);   /* lower end of interval for "brak"ket */
   fscanf(fl,"%Lf", &braku0); NL(fl, dummy);   /* upper end of interval for "brak"ket */
   fscanf(fl,"%ld", &brakn); NL(fl, dummy);    /* divisions for "brak"ket interval */
-  fscanf(fl,"%ld", &outfiles); NL(fl, dummy); /* number of output files */
+  fscanf(fl,"%d", &outfiles); NL(fl, dummy); /* number of output files */
 
   for (i=0;i<outfiles;i++) {
+      printf("168\n");
       fscanf(fl,"%s", &outfilename[i][0]); NL(fl, dummy);  /* bifc input filename */
   }
   
@@ -177,8 +180,8 @@ void makeinitials(void)      /* read and adjust initial values */
 void prepoutfiles(void)
 {
   fprintf(fl1,"# a:       %10.7Lf , b:      %10.7Lf \n", a0, b0); 
-  fprintf(fl1,"# omega:   (m =%4d) / (n =%4d) \n", m, n); 
-  fprintf(fl1,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , brakn:    %10d\n", 
+  fprintf(fl1,"# omega:   (m =%4ld) / (n =%4ld) \n", m, n); 
+  fprintf(fl1,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , brakn:    %10ld\n", 
 	  brakl0, braku0, brakn); 
   fprintf(fl1,"# acc:     %10.3Le , lacc:      %10.3Le , eqd:     %10.3Le\n", acc, lacc, eqd); 
   fprintf(fl1,"# %13s %15s %10s %10s %6s %6s %6s\n", 
@@ -186,8 +189,8 @@ void prepoutfiles(void)
 
   if (outfiles>1) {
     fprintf(fl2,"# a:       %10.7Lf , b:      %10.7Lf \n", a0, b0); 
-    fprintf(fl2,"# omega:   (m =%4d) / (n =%4d) \n", m, n); 
-    fprintf(fl2,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , brakn:    %10d\n", 
+    fprintf(fl2,"# omega:   (m =%4ld) / (n =%4ld) \n", m, n); 
+    fprintf(fl2,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , brakn:    %10ld\n", 
 	    brakl0, braku0, brakn); 
     fprintf(fl2,"# acc:     %10.3Le , lacc:      %10.3Le , eqd:     %10.3Le\n", acc, lacc, eqd); 
   }
@@ -253,7 +256,7 @@ void assignshino(int ss, long double *xval, long double *yval)
       default: {*xval=-0.25L; *yval=-0.5L*b0; printf("Uhoh - shinopoint...\n");}
   }
 
-  *xval=dreml(*xval,1.0L);
+  *xval=remainderl(*xval,1.0L);
 }
 
     
@@ -359,29 +362,29 @@ int findshinofp(int shp, long double *shx, long double *shy, long double *shlx, 
     long double xx0, yy0, xx, yy, dxx, dyy;
     int i, j;
 
-    assignshino(shp, &xx0, &yy0); xx0=dreml(xx0,1.0L);
+    assignshino(shp, &xx0, &yy0); xx0=remainderl(xx0,1.0L);
     xx=xx0; yy=yy0;
 
-    for (i=1;i<=9*n;i++) map(&xx,&yy,a0,b0); xx=dreml(xx,1.0L);
+    for (i=1;i<=9*n;i++) map(&xx,&yy,a0,b0); xx=remainderl(xx,1.0L);
     xx0=xx; yy0=yy;
-    for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=dreml(xx,1.0L);
-    dxx=dreml(xx-xx0,1.0L); dyy=yy-yy0;
+    for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=remainderl(xx,1.0L);
+    dxx=remainderl(xx-xx0,1.0L); dyy=yy-yy0;
     *shlx=exp(log(fabsl(dxx))/((long double) (10)));
     *shly=exp(log(fabsl(dyy))/((long double) (10)));
     xx0=xx; yy0=yy;
-    for (i=1;i<=n;i++) map(&xx,&yy,a0, b0); xx=dreml(xx,1.0L);
+    for (i=1;i<=n;i++) map(&xx,&yy,a0, b0); xx=remainderl(xx,1.0L);
     j=11;
     
-    while (fabsl(dreml(xx-xx0,1.0L))<=fabsl(dxx)+acc 
+    while (fabsl(remainderl(xx-xx0,1.0L))<=fabsl(dxx)+acc 
 	   && fabsl(yy-yy0)<=fabsl(dyy)+acc && fabsl(yy-yy0)>acc && 
-	   /*(fabsl(*shlx-exp(log(fabsl(dreml(xx-xx0,1.0L)))/((long double) (j))))>lacc ||
+	   /*(fabsl(*shlx-exp(log(fabsl(remainderl(xx-xx0,1.0L)))/((long double) (j))))>lacc ||
 	     fabsl(*shly-exp(log(fabsl(yy-yy0))/((long double) (j))))>lacc) &&*/ j<ROOT_NO) {
-	dxx=(fabsl(dreml(xx-xx0,1.0L))>acc? dreml(xx-xx0,1.0L):acc); dyy=yy-yy0;
-	if (fabsl(dreml(dxx,1.0L))<fabsl(dyy)) dxx=dyy;
+	dxx=(fabsl(remainderl(xx-xx0,1.0L))>acc? remainderl(xx-xx0,1.0L):acc); dyy=yy-yy0;
+	if (fabsl(remainderl(dxx,1.0L))<fabsl(dyy)) dxx=dyy;
 	*shlx=exp(log(fabsl(dxx))/((long double) (j)));
 	*shly=exp(log(fabsl(dyy))/((long double) (j)));
 	xx0=xx; yy0=yy;
-	for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=dreml(xx,1.0L);
+	for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=remainderl(xx,1.0L);
 	j++;
     }
     *shx=xx; *shy=yy;
@@ -392,31 +395,31 @@ int findshinofp(int shp, long double *shx, long double *shy, long double *shlx, 
 	*shly=exp(log(fabsl(dyy))/((long double) (j)));
 	return 1;
     }
-    else if (fabsl(dreml(xx-xx0,1.0L))<=fabsl(dxx)+5.0L*acc 
+    else if (fabsl(remainderl(xx-xx0,1.0L))<=fabsl(dxx)+5.0L*acc 
 	     && fabsl(yy-yy0)<=fabsl(dyy)+5.0L*acc && j<ROOT_NO) {
-	*shlx=exp(log(fabsl(dreml(xx-xx0,1.0L)))/((long double) (j)));
+	*shlx=exp(log(fabsl(remainderl(xx-xx0,1.0L)))/((long double) (j)));
 	*shly=exp(log(fabsl(yy-yy0))/((long double) (j)));
-	if (dreml(xx-xx0,1.0L)>0) xx=xx0+pow(*shlx,((long double) (j)))/(1.0L-(*shlx));
+	if (remainderl(xx-xx0,1.0L)>0) xx=xx0+pow(*shlx,((long double) (j)))/(1.0L-(*shlx));
 	else xx=xx0-pow(*shlx,((long double) (j)))/(1.0L-(*shlx));
 	if (yy>yy0) yy=yy0+pow(*shly,((long double) (j)))/(1.0L-(*shly));
 	else yy=yy0-pow(*shly,((long double) (j)))/(1.0L-(*shly));
-	xx=dreml(xx,1.0L); xx0=xx; yy0=yy;
-	for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=dreml(xx,1.0L);
+	xx=remainderl(xx,1.0L); xx0=xx; yy0=yy;
+	for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=remainderl(xx,1.0L);
 	if (fabsl(yy-yy0)<acc) {*shx=xx; *shy=yy; return 1;} else {
-	    while (fabsl(dreml(xx-xx0,1.0L))<=fabsl(dxx)+acc 
+	    while (fabsl(remainderl(xx-xx0,1.0L))<=fabsl(dxx)+acc 
 		   && fabsl(yy-yy0)<=fabsl(dyy)+acc && fabsl(yy-yy0)>acc && j<ROOT_NO) {
-		dxx=(fabsl(dreml(xx-xx0,1.0L))>acc? dreml(xx-xx0,1.0L):acc); dyy=yy-yy0;
-		if (fabsl(dreml(dxx,1.0L))<fabsl(dyy)) dxx=dyy;
+		dxx=(fabsl(remainderl(xx-xx0,1.0L))>acc? remainderl(xx-xx0,1.0L):acc); dyy=yy-yy0;
+		if (fabsl(remainderl(dxx,1.0L))<fabsl(dyy)) dxx=dyy;
 		*shlx=exp(log(fabsl(dxx))/((long double) (j)));
 		*shly=exp(log(fabsl(dyy))/((long double) (j)));
 		xx0=xx; yy0=yy;
-		for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=dreml(xx,1.0L);
+		for (i=1;i<=n;i++) map(&xx,&yy,a0,b0); xx=remainderl(xx,1.0L);
 		j++;
 	    }
 	    if (fabsl(yy-yy0)<acc) {
 		*shx=xx; 
 		*shy=yy;	
-		*shlx=exp(log(fabsl(dreml(xx-xx0,1.0L)))/((long double) (j)));
+		*shlx=exp(log(fabsl(remainderl(xx-xx0,1.0L)))/((long double) (j)));
 		*shly=exp(log(fabsl(yy-yy0))/((long double) (j)));
 		return 1;
 	    } 
@@ -444,7 +447,7 @@ long double residue(int ii, int *iieq, int *iiter, long double *tmp)
 
   *iieq=ii;
   *iiter=0;
-  qq=xorbs[ii]; qq=dreml(qq,1.0L);
+  qq=xorbs[ii]; qq=remainderl(qq,1.0L);
   pp=yorbs[ii];
   ntdm(qq,pp,lm);
 
@@ -452,7 +455,7 @@ long double residue(int ii, int *iieq, int *iiter, long double *tmp)
 
     if (outfiles>1) fprintf(fl2,"%14.8Lf %14.8Lf\n", qq, pp); 
 
-    map(&qq, &pp, a0, b0); qq=dreml(qq,1.0L);
+    map(&qq, &pp, a0, b0); qq=remainderl(qq,1.0L);
     if (k==n/2) *tmp=pp;
     ntdm(qq,pp,dpq);
     for (i=0;i<=1;i++) for (j=0;j<=1;j++) lm0[i][j]=lm[i][j]; 
@@ -464,7 +467,7 @@ long double residue(int ii, int *iieq, int *iiter, long double *tmp)
   }
 
   if (outfiles>1) fprintf(fl2,"%14.8Lf %14.8Lf ", qq, pp);
-  map(&qq, &pp, a0, b0); qq=dreml(qq,1.0L);
+  map(&qq, &pp, a0, b0); qq=remainderl(qq,1.0L);
   fprintf(fl2,"%14.4Le %14.4Le\n\n", qq-findx0(yorbs[i], a0, sln), pp-yorbs[i]);
 
   return (2.0L-lm[0][0]-lm[1][1])/4.0L;
