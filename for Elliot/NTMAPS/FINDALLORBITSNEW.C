@@ -131,7 +131,6 @@ int main(int argc, char **argv)
 		  xorbs[i], yorbs[i], residue(i, &idorb, &idorbiter, &phalf));
 	  fprintf(fl1,"%10.5Lf %6d %6d %6d\n", phalf, i, idorb, idorbiter);
       }
-  
       fprintf(fl1,"\n");
   }
     
