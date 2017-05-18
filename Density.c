@@ -43,12 +43,13 @@ long double residue(int, int *, int *, long double *);
 void zbrak(long double (*)(long double), long double, long double, int, long double[], long double[], int *);
 long double rtbis(long double (*)(long double), long double, long double, long double);
 long int gcd(long int, long int);
-void findShinoOrbitYonSLN(long double, long double, long double * ,long double *)
+void findShinoOrbitYonSLN(long double, long double, long double * ,long double *);
 
 double mysecond();
 
 long double pi;
 long double a0, aStepSize, b0, bStepSize, acc, lacc, eqd, brakl0, braku0;
+long double aMax,bMax,aStart;
 long double xorbs[ROOT_NO], yorbs[ROOT_NO];
 int  sln, outfiles,n_aSteps, n_bSteps;
 unsigned long int n, m, n_BaseBraks, n_Braks, nMax;
@@ -72,13 +73,13 @@ int main(int argc, char **argv)
 	if (outfiles>1) fl2=fopen(outfilename[1], "w");
  
 
-aStepSize = (1/(long double)n_aSteps);
-bStepSize = (1/(long double)n_bSteps);
+aStepSize = (aMax/(long double)n_aSteps);
+bStepSize = (bMax/(long double)n_bSteps);
 
 
 for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 	a0 = i_a * aStepSize;
-	a0 = 0.64L;
+	if(n_aSteps ==1 ) a0 = aStart;
 	for (i_b=1; i_b<=n_bSteps; i_b++){// Start of "b" loop
 		b0 = i_b * bStepSize;
 		t0 = mysecond();
@@ -215,7 +216,10 @@ void makeinitials(void)      /* read and adjust initial values */
 	fl=fopen(infilename, "r");
 
 	fscanf(fl,"%d",&n_aSteps);  NL(fl,dummy);  //a steps
+	fscanf(fl,"%Lf",&aStart);  NL(fl,dummy);  //find a start
+	fscanf(fl,"%Lf",&aMax);  NL(fl,dummy);  //a max
 	fscanf(fl,"%d",&n_bSteps);  NL(fl,dummy);  //b steps
+	fscanf(fl,"%Lf",&bMax);  NL(fl,dummy);  //b max
 	fscanf(fl,"%ld",&nMax); NL(fl,dummy);  //highest periodic orbit
 	fscanf(fl,"%Lf",&acc);  NL(fl,dummy);  //absolute root acc
 	//Number of output files
@@ -323,19 +327,19 @@ long double findx0(long double aa0, long double yy0, int symmln)
 }
 
 
-// /* assign shinohara points */
-// void assignshino(int ss, long double *xval, long double *yval)
-// {
-//   switch (sln) {
-//       case 1: {*xval=-0.25L; *yval=-0.5L*b0; break;}
-//       case 2: {*xval=a0/2.0L-0.25L; *yval=0.0L; break;}
-//       case 3: {*xval=0.25L; *yval=0.5L*b0;break;}
-//       case 4: {*xval=a0/2.0L-0.25L; *yval=0.0L; break;}
-//       default: {*xval=-0.25L; *yval=-0.5L*b0; printf("Uhoh - shinopoint...\n");}
-//   }
+/* assign shinohara points */
+void assignshino(int ss, long double *xval, long double *yval)
+{
+  switch (sln) {
+      case 1: {*xval=-0.25L; *yval=-0.5L*b0; break;}
+      case 2: {*xval=a0/2.0L-0.25L; *yval=0.0L; break;}
+      case 3: {*xval=0.25L; *yval=0.5L*b0;break;}
+      case 4: {*xval=a0/2.0L-0.25L; *yval=0.0L; break;}
+      default: {*xval=-0.25L; *yval=-0.5L*b0; printf("Uhoh - shinopoint...\n");}
+  }
 
-//   *xval=remainderl(*xval,1.0L);
-// }
+  *xval=remainderl(*xval,1.0L);
+}
 
 //new fiter functions
 
@@ -628,7 +632,7 @@ void findShinoOrbitYonSLN(long double a0, long double b0, long double *x ,long d
 {
     long double accuracy = 1e-3L;
     int i=0;
-    assignshino(a0, b0, 1, x, y);
+    assignshino(1, x, y);
     //iterate shino until x is close to 0
     while((fabsl(*x) > accuracy) && fabsl(1-*x) > accuracy){
         ntmapstep(x, y, a0, b0);

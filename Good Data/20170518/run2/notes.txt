@@ -1,0 +1,3 @@
+I was just trying to reproduce the results from the good run from yesterday.  It worked really well!  Not sure what I changed haha/
+
+One of the main things I changed was that I changed the way that I measure the width of the resonances. 

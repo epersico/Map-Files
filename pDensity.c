@@ -7,11 +7,6 @@
 //set up output file architecture
 
 
-//PARALLELIZE TO DO LIST
-//MPI for a loop
-//OpenMP for root finding
-//Figure out IO
-//Do timings
 
 
 

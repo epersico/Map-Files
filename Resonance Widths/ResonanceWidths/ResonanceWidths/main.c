@@ -14,6 +14,7 @@
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
+#define nParameters 300
 
 void ntmapstep(long double *, long double *, long double, long double);
 void find_om(long double, long double, long double, long double, long double *, long double *,
@@ -28,7 +29,7 @@ long double  pi,cutoff,dn,speedup;
 int nMax;
 int n_ysteps=500;
 long double yRange = 0.06;
-int n_bsteps=1000;
+int n_bsteps=300;
 char infilename[64],outfilename[64], widthFilename[60];
 FILE *fl,*flw;
 
@@ -39,7 +40,7 @@ int main(int argc, const char * argv[]) {
     sprintf(infilename,"./data/orbits_3.out");
     char dummy;
     pi=4.0L*atanl(1.0L);
-    int n,m,nParameters=n_bsteps;
+    int n,m;//nParameters=n_bsteps;
     long double a0[nParameters],b0[nParameters];
     long double x0[nParameters][2],y0[nParameters][2],residue[nParameters][2];
     long double widths[nParameters][2];
@@ -182,7 +183,7 @@ void findShinoOrbitYonSLN(long double a0, long double b0, long double *x ,long d
 }
 
 void ResonanceWidths(long double a, long double b, long double x0, long double y0, int m, int n, int updown,long double *width){
-    int i,ncutoff,ndom,nomin,nomax,error=0;
+    int i,ncutoff,ndom,nomin,nomax,error=0,widthCount=0;
     long double stepsize = yRange/n_ysteps,yf,omega[2*n_ysteps][2],omega0,dom,omax,omin,y=y0-stepsize*n_ysteps;
     char filename[60]="./widths/",astr[60],bstr[60],mstr[60],nstr[60],updownstr[60];
     FILE *fl;
@@ -211,24 +212,24 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
         
         if(omega[i][updown] > -1 && omega[i][updown] < 1){
             fprintf(fl,"%21.17Lf %21.17Lf\n",y, omega[i][updown]);
-            if(  fabsl(omega[i][updown]-omega0) > 1.0e-4L  &&  i<n_ysteps  ){
-                yLow = y; error=1;
+            if(  fabsl(omega[i][updown]-omega0) < 1.0e-4L  &&  i<=n_ysteps && error == 0 ){
+                yLow = y; error=1; widthCount++;
                 //printf("Bottom bound was %Lf\n",yLow);
             }
-            if(  fabsl(omega[i][updown]-omega0) > 1.0e-4L  &&  i>n_ysteps && error != 0){
+            if(  fabsl(omega[i][updown]-omega0) < 1.0e-4L  &&  i>n_ysteps && error != 0){
                 yHigh = y;
                 error+=1;
                 //printf("Upper bound was %Lf\n",yHigh);
             }
             *width = fabsl(yHigh-yLow);
-            if (error == 2) {
-                printf("Width was, %Lf\n",*width);
-                fprintf(flw,"%21.17Lf %21.17Lf\n",b,*width);
-                error +=1;
-            }
+            //*width = (long double)stepsize*widthCount;
         }
     }
-    
+    if (error >= 2) {
+        printf("Width was, %Lf\n",*width);
+        fprintf(flw,"%21.17Lf %21.17Lf\n",b,*width);
+        error +=1;
+    }
     fclose(fl);
 }
 
