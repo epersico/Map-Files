@@ -30,6 +30,16 @@
   recursion to find all even period fractions below 1/1 with a certain
   minimal/maximal spacing
 
+- findallorbitsnew:
+  
+  find all orbits of winding number q/p for a given a,b set.  
+    Initialization
+    Output setup
+    Shino forward and backward limits
+    Find root function via filter functions (note coo0 means odd-odd first version)
+    use "zbrak" to find all the intervals where the two points bracket zero
+    Find the roots using bisection method for all these brackets
+    Calculate Residues
 - findorbits: 
 
   find orbits of period q/p along a symmetry line, varying a or b
@@ -46,7 +56,13 @@
 
 - ntstmap:
 
-  non-twist standard map
+  non-twist standard map.
+    basic structure:
+      Load initialization File
+      Prep Outputfiles
+      Iterate all 4 Shinohara points 
+      Iterate points above j0
+      Iterate points below j0
 
 - windo-profile:
 
