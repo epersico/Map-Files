@@ -1,0 +1,76 @@
+1		! a  steps
+0.64 ! starting a value
+1		! Maximum a value
+300	! b  steps
+0.1 ! Maximum b value
+20		! n (periodic orbit period) highest order periodic orbit to find
+1.0e-12		! absolute acc of root searched
+1.0e-10		! eqd (allowed difference to consider to orbits equal)
+-1.0000000000	! lower end of zbrak interval (if bracs>0: only for first b, then zbrac)
+1.00000000000	! upper end of zbrak interval (if <= lower: zbrac with b=0 start guess)
+100		! Base divisions for zbrak interval 
+2		! number of outfiles (1: basics, 2: full m/n orbits, 3: full ?/n orbits
+./data/orbits_3.out
+./data/orbits_3.orbits
+/tmp/findallorbits.allorbits
+
+! if zbrak interval length=0, override zbrak interval to be (-0.5, 0.5)
+
+
+0.2018		      ! b (0...2pi) 1
+0.2036		      ! b (0...2pi) 2
+0.2059		      ! b (0...2pi) 3
+0.2015781	      ! b (0...2pi) bcl 0.201576999394121907
+0.202155	      ! b (0...2pi) rcl 0.202155
+0.20515		      ! b (0...2pi) rcm 0.20515
+0.2067917	      ! b (0...2pi) bcm 0.206792729122106242
+0.2081084	      ! b (0...2pi) bcu 0.208109091049388675
+
+
+!a=0.95:
+0.215252	! b (0...2pi) bcl 0.215250503616571512
+0.235067	! b (0...2pi) bcm 0.235071052394461443
+0.238800	! b (0...2pi) bcu 0.238803830675695282
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+I ran just from b in (0,0.1) with yrange 0.008 and 1000 steps.  This produced more of the widths in the small b limit.  
