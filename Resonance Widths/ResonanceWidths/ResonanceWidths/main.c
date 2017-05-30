@@ -14,7 +14,7 @@
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
-#define nParameters 300
+#define nParameters 1000
 
 void ntmapstep(long double *, long double *, long double, long double);
 void find_om(long double, long double, long double, long double, long double *, long double *,
@@ -27,8 +27,9 @@ void ResonanceWidths(long double, long double, long double, long double,int, int
 
 long double  pi,cutoff,dn,speedup;
 int nMax;
-int n_ysteps=500;
-long double yRange = 0.06;
+int n_ysteps=5000;
+long double yRange = 3e-3;
+long double windAccuracy = 1.0e-4L;
 int n_bsteps=300;
 char infilename[64],outfilename[64], widthFilename[60];
 FILE *fl,*flw;
@@ -83,11 +84,10 @@ int main(int argc, const char * argv[]) {
         }
         for(j=0;j<nRoots;j++)
         {
-            fscanf(fl,"%Lf  %Lf          %Lf",&x0[i][j],&y0[i][j],&residue[i][j]);   NL(fl,dummy);
+            fscanf(fl,"%Lf  %Lf %Lf",&x0[i][j],&y0[i][j],&residue[i][j]);   NL(fl,dummy);
             updown[i][j] = (y0[i][j]>shinoy) ? 1 : 0;
             //Now to find the winding number as we move up and down.
-            if (residue[i][j]>1 || residue[i][j] < 0) break;
-            ResonanceWidths(a0[i],b0[i],x0[i][j],y0[i][j],m,n,updown[i][j],&widths[i][updown[i][j]]);
+            if (residue[i][j]<1 && residue[i][j] > 0)   ResonanceWidths(a0[i],b0[i],x0[i][j],y0[i][j],m,n,updown[i][j],&widths[i][updown[i][j]]);
         }
         
         NL(fl,dummy);
@@ -212,11 +212,11 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
         
         if(omega[i][updown] > -1 && omega[i][updown] < 1){
             fprintf(fl,"%21.17Lf %21.17Lf\n",y, omega[i][updown]);
-            if(  fabsl(omega[i][updown]-omega0) < 1.0e-4L  &&  i<=n_ysteps && error == 0 ){
+            if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i<=n_ysteps && error == 0 ){
                 yLow = y; error=1; widthCount++;
                 //printf("Bottom bound was %Lf\n",yLow);
             }
-            if(  fabsl(omega[i][updown]-omega0) < 1.0e-4L  &&  i>n_ysteps && error != 0){
+            if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i>n_ysteps && error != 0){
                 yHigh = y;
                 error+=1;
                 //printf("Upper bound was %Lf\n",yHigh);

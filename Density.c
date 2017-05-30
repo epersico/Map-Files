@@ -49,7 +49,7 @@ double mysecond();
 
 long double pi;
 long double a0, aStepSize, b0, bStepSize, acc, lacc, eqd, brakl0, braku0;
-long double aMax,bMax,aStart;
+long double aMax,bMax,aStart,bStart;
 long double xorbs[ROOT_NO], yorbs[ROOT_NO];
 int  sln, outfiles,n_aSteps, n_bSteps;
 unsigned long int n, m, n_BaseBraks, n_Braks, nMax;
@@ -82,6 +82,7 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 	if(n_aSteps ==1 ) a0 = aStart;
 	for (i_b=1; i_b<=n_bSteps; i_b++){// Start of "b" loop
 		b0 = i_b * bStepSize;
+		if(n_bSteps ==1 ) b0 = bStart;
 		t0 = mysecond();
 
 		printf("------ \n\n\n\n NEW (a,b) VALUES: (%Lf,%Lf) \n\n\n\n -------\n",a0,b0);
@@ -126,8 +127,8 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 
 			n = nMax/gcd(i_m,nMax);
 			m = i_m/gcd(i_m,nMax);
-			n=5;
-			m=3;
+			n=2;
+			m=1;
 			n_Braks = n_BaseBraks * n;
 			printf("Now doing %ld / %ld \n",m,n);
 			prepoutfiles();
@@ -219,6 +220,7 @@ void makeinitials(void)      /* read and adjust initial values */
 	fscanf(fl,"%Lf",&aStart);  NL(fl,dummy);  //find a start
 	fscanf(fl,"%Lf",&aMax);  NL(fl,dummy);  //a max
 	fscanf(fl,"%d",&n_bSteps);  NL(fl,dummy);  //b steps
+	fscanf(fl,"%Lf",&bStart);  NL(fl,dummy);  //find a start
 	fscanf(fl,"%Lf",&bMax);  NL(fl,dummy);  //b max
 	fscanf(fl,"%ld",&nMax); NL(fl,dummy);  //highest periodic orbit
 	fscanf(fl,"%Lf",&acc);  NL(fl,dummy);  //absolute root acc

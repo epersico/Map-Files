@@ -1,8 +1,9 @@
 1		! a  steps
 0.64 ! starting a value
 1		! Maximum a value
-100	! b  steps
-1 ! Maximum b value
+1000	! b  steps
+0 ! starting b value
+0.5 ! Maximum b value
 20		! n (periodic orbit period) highest order periodic orbit to find
 1.0e-12		! absolute acc of root searched
 1.0e-10		! eqd (allowed difference to consider to orbits equal)
