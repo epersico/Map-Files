@@ -121,14 +121,15 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 
 		//Here is where the loop over periodic orbits needs to happen. Fix denominator, iterate over numerator 
 		
-		//for (i_m=1; i_m<nMax; i_m++){
-		for (i_m=1;i_m<=1;i_m++){	
+		for (i_m=1; i_m<=nMax; i_m++){
+		//for (i_m=1;i_m<=1;i_m++){	
 		        meql=0;
 
-			n = nMax/gcd(i_m,nMax);
-			m = i_m/gcd(i_m,nMax);
-			n=2;
-			m=1;
+			if (nMax >1){
+				n = nMax/gcd(i_m,nMax);
+				m = i_m/gcd(i_m,nMax);
+			}
+
 			n_Braks = n_BaseBraks * n;
 			printf("Now doing %ld / %ld \n",m,n);
 			prepoutfiles();
@@ -223,6 +224,8 @@ void makeinitials(void)      /* read and adjust initial values */
 	fscanf(fl,"%Lf",&bStart);  NL(fl,dummy);  //find a start
 	fscanf(fl,"%Lf",&bMax);  NL(fl,dummy);  //b max
 	fscanf(fl,"%ld",&nMax); NL(fl,dummy);  //highest periodic orbit
+	fscanf(fl,"%ld",&m); NL(fl,dummy);  //m
+	fscanf(fl,"%ld",&n); NL(fl,dummy);  //n
 	fscanf(fl,"%Lf",&acc);  NL(fl,dummy);  //absolute root acc
 	//Number of output files
 
