@@ -1,10 +1,12 @@
 1		! a  steps
 0.64 ! starting a value
 1		! Maximum a value
-1000	! b  steps
+100	! b  steps
 0 ! starting b value
-0.5 ! Maximum b value
-20		! n (periodic orbit period) highest order periodic orbit to find
+0.7 ! Maximum b value
+1		! n (periodic orbit period) highest order periodic orbit to find
+3	 	! m
+5   !	n
 1.0e-12		! absolute acc of root searched
 1.0e-10		! eqd (allowed difference to consider to orbits equal)
 -1.0000000000	! lower end of zbrak interval (if bracs>0: only for first b, then zbrac)

@@ -14,7 +14,7 @@
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
-#define nParameters 1000
+#define nParameters 100
 
 void ntmapstep(long double *, long double *, long double, long double);
 void find_om(long double, long double, long double, long double, long double *, long double *,
@@ -27,10 +27,10 @@ void ResonanceWidths(long double, long double, long double, long double,int, int
 
 long double  pi,cutoff,dn,speedup;
 int nMax;
-int n_ysteps=5000;
-long double yRange = 3e-3;
+int n_ysteps=500;
+long double yRange = 3e-1;
 long double windAccuracy = 1.0e-4L;
-int n_bsteps=300;
+int n_bsteps=100;
 char infilename[64],outfilename[64], widthFilename[60];
 FILE *fl,*flw;
 
@@ -47,7 +47,7 @@ int main(int argc, const char * argv[]) {
     long double widths[nParameters][2];
     int sln, nRoots,i,j,updown[nParameters][2];
     long double shinox,shinoy;
-    nMax = 1.0e6L; //Total number of iterations allowed for the winding number to converge
+    nMax = 1.0e5L; //Total number of iterations allowed for the winding number to converge
     cutoff = 1.0e-3L; //The winding number needs to stay within this amount to call it converged
     dn=1.0e3L;  //How long it needs to stay the same to be called convergent
     
@@ -210,7 +210,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
         y += stepsize;
         find_om(a, b, x0, y, &yf, &omega[i][updown], &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
         
-        if(omega[i][updown] > -1 && omega[i][updown] < 1){
+        if(fabsl(omega[i][updown] - omega0)< 0.1){
             fprintf(fl,"%21.17Lf %21.17Lf\n",y, omega[i][updown]);
             if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i<=n_ysteps && error == 0 ){
                 yLow = y; error=1; widthCount++;
@@ -227,7 +227,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
     }
     if (error >= 2) {
         printf("Width was, %Lf\n",*width);
-        fprintf(flw,"%21.17Lf %21.17Lf\n",b,*width);
+        fprintf(fl,"%21.17Lf %21.17Lf\n",b,*width);
         error +=1;
     }
     fclose(fl);
