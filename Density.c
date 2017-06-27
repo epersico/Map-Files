@@ -78,11 +78,11 @@ bStepSize = (bMax/(long double)n_bSteps);
 
 
 for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
-	a0 = i_a * aStepSize;
 	if(n_aSteps ==1 ) a0 = aStart;
+	else a0 += aStepSize;
 	for (i_b=1; i_b<=n_bSteps; i_b++){// Start of "b" loop
-		b0 = i_b * bStepSize;
 		if(n_bSteps ==1 ) b0 = bStart;
+		else b0 += bStepSize;
 		t0 = mysecond();
 
 		printf("------ \n\n\n\n NEW (a,b) VALUES: (%Lf,%Lf) \n\n\n\n -------\n",a0,b0);

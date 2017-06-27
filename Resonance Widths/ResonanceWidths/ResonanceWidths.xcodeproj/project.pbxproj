@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC251DB71EE2646F00A0EA9D /* stdMapWidths.c in Sources */ = {isa = PBXBuildFile; fileRef = BC251DB51EE2646F00A0EA9D /* stdMapWidths.c */; };
 		BC2B44651EC3CB2E0075E1FC /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = BC2B44641EC3CB2E0075E1FC /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC251DB51EE2646F00A0EA9D /* stdMapWidths.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdMapWidths.c; sourceTree = "<group>"; };
+		BC251DB61EE2646F00A0EA9D /* stdMapWidths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdMapWidths.h; sourceTree = "<group>"; };
 		BC2B44611EC3CB2E0075E1FC /* ResonanceWidths */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ResonanceWidths; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC2B44641EC3CB2E0075E1FC /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				BC2B44641EC3CB2E0075E1FC /* main.c */,
+				BC251DB51EE2646F00A0EA9D /* stdMapWidths.c */,
+				BC251DB61EE2646F00A0EA9D /* stdMapWidths.h */,
 			);
 			path = ResonanceWidths;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC2B44651EC3CB2E0075E1FC /* main.c in Sources */,
+				BC251DB71EE2646F00A0EA9D /* stdMapWidths.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +254,7 @@
 				BC2B446A1EC3CB2E0075E1FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

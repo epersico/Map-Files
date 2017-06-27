@@ -14,9 +14,11 @@
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
-#define nParameters 100
+#define nParameters 1000
 
 void ntmapstep(long double *, long double *, long double, long double);
+void standardmapstep(long double *, long double *, long double,long double);
+void (*map)(long double *, long double *, long double, long double);
 void find_om(long double, long double, long double, long double, long double *, long double *,
              int *, long double *, int *,
              long double *, int *, long double *, int *);
@@ -25,10 +27,11 @@ void findShinoOrbitYonSLN(long double, long double, long double *,long double *)
 void ResonanceWidths(long double, long double, long double, long double,int, int, int, long double *);
 
 
+
 long double  pi,cutoff,dn,speedup;
 int nMax;
-int n_ysteps=500;
-long double yRange = 3e-1;
+int n_ysteps=5000;
+long double yRange = 5e-3;
 long double windAccuracy = 1.0e-4L;
 int n_bsteps=100;
 char infilename[64],outfilename[64], widthFilename[60];
@@ -47,9 +50,11 @@ int main(int argc, const char * argv[]) {
     long double widths[nParameters][2];
     int sln, nRoots,i,j,updown[nParameters][2];
     long double shinox,shinoy;
-    nMax = 1.0e5L; //Total number of iterations allowed for the winding number to converge
-    cutoff = 1.0e-3L; //The winding number needs to stay within this amount to call it converged
-    dn=1.0e3L;  //How long it needs to stay the same to be called convergent
+    nMax = 1.0e7L; //Total number of iterations allowed for the winding number to converge
+    cutoff = 1.0e-5L; //The winding number needs to stay within this amount to call it converged
+    dn=1.0e5L;  //How long it needs to stay the same to be called convergent
+    map = &ntmapstep;
+    map = &standardmapstep;
     
     //Rigorous values are nMax=1.0e-8L, cutoff - 1.0e-4L, dn =1.0e5L
     printf("The filename opened was %s\n",infilename);
@@ -79,8 +84,11 @@ int main(int argc, const char * argv[]) {
             printf("There were more than 2 roots for (a,b)=(%Lf,%Lf)\n",a0[i],b0[i]);
             break;
         }
-        else{
+        else if(map == &ntmapstep){
             findShinoOrbitYonSLN(a0[i], b0[i], &shinox, &shinoy);
+        }
+        else{
+            shinoy=0;
         }
         for(j=0;j<nRoots;j++)
         {
@@ -106,6 +114,11 @@ void ntmapstep(long double *xxx, long double *yyy, long double aaa, long double 
     (*xxx)+=aaa-aaa*(*yyy)*(*yyy);
 }
 
+void standardmapstep(long double *xxx, long double *yyy, long double aaa, long double kkk)
+{
+    (*yyy)+=kkk*sinl(2.0L*pi*(*xxx));
+    (*xxx)+=(*yyy);
+}
 
 void find_om(long double a0, long double b0, long double x0, long double y0, long double *yf, long double *om,
              int *ncut, long double *diffom, int *ndiffom,
@@ -118,13 +131,13 @@ void find_om(long double a0, long double b0, long double x0, long double y0, lon
     *maxom=-1.0e11L; *nmaxom=0;
     *minom=1.0e11L; *nminom=0;
     
-    ntmapstep(&x, &y, a0, b0);
+    map(&x, &y, a0, b0);
     omo = (x-x0);
     
     i=2;
     do           /* iteration of nt-map */
     {
-        ntmapstep(&x, &y, a0, b0);
+        map(&x, &y, a0, b0);
         *om = (x-x0)/((long double)(i));
         if (*om>*maxom) {*maxom=*om; *nmaxom=i;}     /* store max. of om */
         if (*om<*minom) {*minom=*om; *nminom=i;}     /* store min. of om */
@@ -172,7 +185,7 @@ void findShinoOrbitYonSLN(long double a0, long double b0, long double *x ,long d
     assignshino(a0, b0, 1, x, y);
     //iterate shino until x is close to 0
     while((fabsl(*x) > accuracy) && fabsl(1-*x) > accuracy){
-        ntmapstep(x, y, a0, b0);
+        map(x, y, a0, b0);
         *x = remainderl(*x, 1.0L);
         i++;
         if(i>1e4) {
@@ -211,7 +224,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
         find_om(a, b, x0, y, &yf, &omega[i][updown], &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
         
         if(fabsl(omega[i][updown] - omega0)< 0.1){
-            fprintf(fl,"%21.17Lf %21.17Lf\n",y, omega[i][updown]);
+            fprintf(fl,"%21.17Lf %21.17Lf\n",i*stepsize-stepsize*n_ysteps, omega[i][updown]);
             if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i<=n_ysteps && error == 0 ){
                 yLow = y; error=1; widthCount++;
                 //printf("Bottom bound was %Lf\n",yLow);
@@ -227,7 +240,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
     }
     if (error >= 2) {
         printf("Width was, %Lf\n",*width);
-        fprintf(fl,"%21.17Lf %21.17Lf\n",b,*width);
+        fprintf(flw,"%21.17Lf %21.17Lf\n",b,*width);
         error +=1;
     }
     fclose(fl);
