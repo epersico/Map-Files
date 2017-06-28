@@ -27,9 +27,10 @@ void ResonanceWidths(long double, long double, long double, int, int, long doubl
 long double  pi,twopi,cutoff,dn,speedup;
 int nMax;
 int n_ysteps=4000;
-long double yRange = .5;
-long double windAccuracy = 2e-4;
-long double bMax = .1;
+long double yRange = .001;
+long double windAccuracy = 6e-6;
+long double bMax = .003;
+long double omegaplotrange = 1e-4;
 char outfilename[64], widthFilename[60];
 FILE *fl,*flw;
 
@@ -50,6 +51,8 @@ int main(int argc, const char * argv[]) {
     dn=1.0e3L;  //How long it needs to stay the same to be called convergent
 
     x=0.0L; y=0.5L; m=1; n=2;
+
+    //x=0.5L; y=0.0L; m=1;n=1;
     printf("The max b value is %Lf\n",bMax);
     for(i=1;i<=nParameters;i++){
         b = i * bMax/nParameters;
@@ -146,7 +149,7 @@ void ResonanceWidths(long double b, long double x0, long double y0, int m, int n
     for(i=0;i<2*n_ysteps;i++){
         y += stepsize;
         find_om(b, x0, y, &yf, &omega[i], &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
-        if(fabsl(omega[i] - omega0)< .01){
+        if(fabsl(omega[i] - omega0)< omegaplotrange){
             fprintf(fl,"%21.17Lf %21.17Lf\n",i*stepsize-stepsize*n_ysteps, omega[i]);
             if(  fabsl(omega[i]-omega0) < windAccuracy  &&  i<=n_ysteps && error == 0 ){
                 yLow = y; error=1; widthCount++;
