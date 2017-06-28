@@ -30,7 +30,7 @@ void ResonanceWidths(long double, long double, long double, long double,int, int
 
 long double  pi,cutoff,dn,speedup;
 int nMax;
-int n_ysteps=5000;
+int n_ysteps=50;
 long double yRange = 5e-3;
 long double windAccuracy = 1.0e-4L;
 int n_bsteps=100;
@@ -49,10 +49,10 @@ int main(int argc, const char * argv[]) {
     long double x0[nParameters][2],y0[nParameters][2],residue[nParameters][2];
     long double widths[nParameters][2];
     int sln, nRoots,i,j,updown[nParameters][2];
-    long double shinox,shinoy;
-    nMax = 1.0e7L; //Total number of iterations allowed for the winding number to converge
-    cutoff = 1.0e-5L; //The winding number needs to stay within this amount to call it converged
-    dn=1.0e5L;  //How long it needs to stay the same to be called convergent
+    long double shinox,shinoy,dum1,dum2;
+    nMax = 1.0e5L; //Total number of iterations allowed for the winding number to converge
+    cutoff = 1.0e-3L; //The winding number needs to stay within this amount to call it converged
+    dn=1.0e3L;  //How long it needs to stay the same to be called convergent
     map = &ntmapstep;
     map = &standardmapstep;
     
@@ -61,7 +61,7 @@ int main(int argc, const char * argv[]) {
     fl = fopen(infilename,"r");
 
     for(i=0;i<nParameters;i++){
-        fscanf(fl,"# a: %Lf , b: %Lf",&a0[i],&b0[i]);   NL(fl,dummy);
+        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)",&a0[i],&dum1,&b0[i],&dum2);   NL(fl,dummy);
         printf("(a,b) = (%Lf,%Lf)\n",a0[i],b0[i]);
         fscanf(fl, "# omega:   (m =   %d) / (n =  %d) ",&m,&n);  NL(fl,dummy);
         //printf("(a,b)=(%Lf,%Lf)\n",a0[i],b0[i]);
@@ -72,7 +72,6 @@ int main(int argc, const char * argv[]) {
         }
         
         //printf("(shinox,shinoy)=(%Lf,%Lf)\n",shinox,shinoy);
-        NL(fl,dummy);
         NL(fl,dummy);
         NL(fl,dummy);
         fscanf(fl,"# sln=%d , maxbrack=%d",&sln,&nRoots); NL(fl,dummy);
@@ -92,7 +91,8 @@ int main(int argc, const char * argv[]) {
         }
         for(j=0;j<nRoots;j++)
         {
-            fscanf(fl,"%Lf  %Lf %Lf",&x0[i][j],&y0[i][j],&residue[i][j]);   NL(fl,dummy);
+            fscanf(fl,"%La (%Le) %La (%Le) %Lf",&x0[i][j],&dum1,&y0[i][j],&dum2,&residue[i][j]);   NL(fl,dummy);
+            printf("Root was (x,y)=(%4Lf,%4Lf)\n",x0[i][j],y0[i][j]);
             updown[i][j] = (y0[i][j]>shinoy) ? 1 : 0;
             //Now to find the winding number as we move up and down.
             if (residue[i][j]<1 && residue[i][j] > 0)   ResonanceWidths(a0[i],b0[i],x0[i][j],y0[i][j],m,n,updown[i][j],&widths[i][updown[i][j]]);

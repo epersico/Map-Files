@@ -133,8 +133,7 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 			n_Braks = n_BaseBraks * n;
 			printf("Now doing %ld / %ld \n",m,n);
 			prepoutfiles();
-			fprintf(fl1,"# a=%21.17Lf, b=%21.17Lf\n", a0, b0);
-			if (outfiles>1) fprintf(fl2,"# a=%15.11Lf, b=%15.11Lf\n", a0, b0);
+			if (outfiles>1) fprintf(fl2,"# a= %La (%.3Le), b=%La (%.3Le)\n", a0,a0,b0, b0);
 			if (outfiles>1) fprintf(fl2,"# %12s %14s\n", "q0", "p0");
 		//Write a function to make output files for each winding number.  Will make a file tree probably.
 		//File for given a,b value.  Then make a file for each orbit in there.  
@@ -178,8 +177,8 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 			
 					fprintf(fl1,"meql=%-4d\n", meql-meqlold);
 					for (i=meqlold+1;i<=meql;i++) {
-				fprintf(fl1,"%15.11Lf %15.11Lf %10.3Lg ", 
-					xorbs[i], yorbs[i], residue(i, &idorb, &idorbiter, &phalf));
+				fprintf(fl1,"%La (%.3Le) %La (%.3Le) %10.3Lg ", 
+					xorbs[i],xorbs[i],yorbs[i], yorbs[i], residue(i, &idorb, &idorbiter, &phalf));
 				fprintf(fl1,"%10.5Lf %6d %6d %6d\n", phalf, i, idorb, idorbiter);
 					}
 			
@@ -266,7 +265,7 @@ void makeinitials(void)      /* read and adjust initial values */
 
 void prepoutfiles(void)
 {
-	fprintf(fl1,"# a:       %26.24Lf , b:      %26.24Lf \n", a0, b0); 
+	fprintf(fl1,"# a: %La (%5.3Le) , b: %La (%5.3Le)\n", a0,a0,b0, b0); 
 	fprintf(fl1,"# omega:   (m =%4ld) / (n =%4ld) \n", m, n); 
 	fprintf(fl1,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , n_Braks:    %10ld\n", 
 		brakl0, braku0, n_Braks); 
@@ -275,7 +274,7 @@ void prepoutfiles(void)
 		"x0", "y0", "res", "yhalf", "orb#", "eq to", "@ i="); 
 
 	if (outfiles>1) {
-		fprintf(fl2,"# a:       %10.7Lf , b:      %10.7Lf \n", a0, b0); 
+		fprintf(fl2,"# a:  %La (%.3Le) , b: %La (%.3Le) \n", a0, a0,b0,b0); 
 		fprintf(fl2,"# omega:   (m =%4ld) / (n =%4ld) \n", m, n); 
 		fprintf(fl2,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , n_Braks:    %10ld\n", 
 			brakl0, braku0, n_Braks); 
