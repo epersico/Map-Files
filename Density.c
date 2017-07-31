@@ -1,13 +1,3 @@
-//TO DO LIST
-
-//a,b loops		done?
-//m loops		 	done?
-//Variable Bracket size
-//ask about shinohara
-//set up output file architecture
-
-
-
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -19,6 +9,7 @@
 #define itstime2mod 1000
 #define SMOOTH(fs) (fs)/(1.0+fabsl(fs))
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
+#define pi  3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679L
 
 const char *infilename="Density.in";
 char outfilename[4][180];
@@ -47,8 +38,9 @@ void findShinoOrbitYonSLN(long double, long double, long double * ,long double *
 
 double mysecond();
 
-long double pi;
+//long double pi;
 long double a0, aStepSize, b0, bStepSize, acc, lacc, eqd, brakl0, braku0;
+long double shinox, shinoy;
 long double aMax,bMax,aStart,bStart;
 long double xorbs[ROOT_NO], yorbs[ROOT_NO];
 int  sln, outfiles,n_aSteps, n_bSteps;
@@ -85,6 +77,8 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 		else b0 += bStepSize;
 		t0 = mysecond();
 
+		findShinoOrbitYonSLN(a0,b0,&shinox, &shinoy);
+
 		printf("------ \n\n\n\n NEW (a,b) VALUES: (%Lf,%Lf) \n\n\n\n -------\n",a0,b0);
 
 
@@ -120,7 +114,6 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 
 
 		//Here is where the loop over periodic orbits needs to happen. Fix denominator, iterate over numerator 
-		
 		for (i_m=1; i_m<=nMax; i_m++){
 		//for (i_m=1;i_m<=1;i_m++){	
 		        meql=0;
@@ -135,8 +128,6 @@ for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 			prepoutfiles();
 			if (outfiles>1) fprintf(fl2,"# a= %La (%.3Le), b=%La (%.3Le)\n", a0,a0,b0, b0);
 			if (outfiles>1) fprintf(fl2,"# %12s %14s\n", "q0", "p0");
-		//Write a function to make output files for each winding number.  Will make a file tree probably.
-		//File for given a,b value.  Then make a file for each orbit in there.  
 
 		/* fixed points on symmetry lines 1-4.  I set the top of the for loop to 1 so it only
 		 searches the root symmetry line.  */
@@ -211,7 +202,7 @@ void makeinitials(void)      /* read and adjust initial values */
 	char dummy;
 	int i;
 
-	pi=4.0L*atanl(1.0L);
+	//pi=4.0L*atanl(1.0L);
 
 	/* read initials */
 	fl=fopen(infilename, "r");
@@ -267,6 +258,7 @@ void prepoutfiles(void)
 {
 	fprintf(fl1,"# a: %La (%5.3Le) , b: %La (%5.3Le)\n", a0,a0,b0, b0); 
 	fprintf(fl1,"# omega:   (m =%4ld) / (n =%4ld) \n", m, n); 
+	fprintf(fl1,"# shinox: %La (%5.3Le) , shinoy: %La (%5.3Le)\n", shinox,shinox,shinoy,shinoy); 
 	fprintf(fl1,"# brakl0:  %10.7Lf , braku0:  %10.7Lf , n_Braks:    %10ld\n", 
 		brakl0, braku0, n_Braks); 
 	fprintf(fl1,"# acc:     %10.3Le , lacc:      %10.3Le , eqd:     %10.3Le\n", acc, lacc, eqd); 
@@ -632,6 +624,8 @@ long int gcd(long int n, long int m)
   return m;
 }
 
+
+//Currently only works for the domianant SLN
 void findShinoOrbitYonSLN(long double a0, long double b0, long double *x ,long double *y)
 {
     long double accuracy = 1e-3L;
