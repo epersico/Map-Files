@@ -27,10 +27,10 @@ void ResonanceWidths(long double, long double, long double, int, int, long doubl
 long double  pi,twopi,cutoff,dn,speedup;
 int nMax;
 int n_ysteps=4000;
-long double yRange = .001;
-long double windAccuracy = 6e-6;
-long double bMax = .003;
-long double omegaplotrange = 1e-4;
+long double yRange = .001;  //sets the distance above and below the root that the program looks
+long double windAccuracy = 6e-6; //Sets the width of what I call "flat"
+long double bMax = .003;  
+long double omegaplotrange = 1e-4;  //Sets the threshold of when the program will save a point to the file for plotting.
 char outfilename[64], widthFilename[60];
 FILE *fl,*flw;
 
