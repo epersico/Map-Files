@@ -15,6 +15,8 @@
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
 #define nParameters 1000
+#define pi  3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679L
+
 
 void ntmapstep(long double *, long double *, long double, long double);
 void standardmapstep(long double *, long double *, long double,long double);
@@ -28,52 +30,58 @@ void ResonanceWidths(long double, long double, long double, long double,int, int
 
 
 
-long double  pi,cutoff,dn,speedup;
-int nMax;
-int n_ysteps=50;
-long double yRange = 5e-3;
-long double windAccuracy = 1.0e-4L;
-int n_bsteps=100;
+long double cutoff,dn,speedup;
+//long double pi;  //This was from before I did a #define of pi.
+int nMax;  //The highest value for the denominator
+int n_ysteps=50;  //The numbers of steps above and below the root to search for a resonance width
+long double yRange = 5e-3;  //The distance over which to search above and below
+long double windAccuracy = 1.0e-4L;  //The winding number must stay within this distance to be called convergent
+int n_bsteps=100;  // The number of b values anticipated from the Density.c output file
 char infilename[64],outfilename[64], widthFilename[60];
-FILE *fl,*flw;
+FILE *fl,*flw, *fld; //fl is the file for the individual winding number, flw is the one just for the widths.
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
-
+    
+    //Start of the program.  Load in the data from Density.c  This has a particular format.
     sprintf(infilename,"./data/orbits_3.out");
     char dummy;
-    pi=4.0L*atanl(1.0L);
+//    pi=4.0L*atanl(1.0L); //Change this to be a full typed out version of pi.
     int n,m;//nParameters=n_bsteps;
     long double a0[nParameters],b0[nParameters];
     long double x0[nParameters][2],y0[nParameters][2],residue[nParameters][2];
     long double widths[nParameters][2];
     int sln, nRoots,i,j,updown[nParameters][2];
-    long double shinox,shinoy,dum1,dum2;
+    long double shinox[nParameters],shinoy[nParameters],dum1,dum2;
     nMax = 1.0e5L; //Total number of iterations allowed for the winding number to converge
     cutoff = 1.0e-3L; //The winding number needs to stay within this amount to call it converged
     dn=1.0e3L;  //How long it needs to stay the same to be called convergent
+    
+    // Uncomment the map I want
     map = &ntmapstep;
-    map = &standardmapstep;
+//    map = &standardmapstep;
     
     //Rigorous values are nMax=1.0e-8L, cutoff - 1.0e-4L, dn =1.0e5L
     printf("The filename opened was %s\n",infilename);
     fl = fopen(infilename,"r");
 
+    //Loop through the input file.  The organization is that for each (a,b) parameter pair there will be a number of roots to iterate through.
     for(i=0;i<nParameters;i++){
-        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)",&a0[i],&dum1,&b0[i],&dum2);   NL(fl,dummy);
-        printf("(a,b) = (%Lf,%Lf)\n",a0[i],b0[i]);
-        fscanf(fl, "# omega:   (m =   %d) / (n =  %d) ",&m,&n);  NL(fl,dummy);
+        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)\n",&a0[i],&dum1,&b0[i],&dum2);           printf("(a,b) = (%Lf,%Lf)\n",a0[i],b0[i]);
+        fscanf(fl, "# omega:   (m =   %d) / (n =  %d)\n",&m,&n);
         //printf("(a,b)=(%Lf,%Lf)\n",a0[i],b0[i]);
-        
+        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)\n",&shinox[i],&dum1,&shinoy[i],&dum2);
+        //Initialization of the widths file.
         if(i==0){
         sprintf(widthFilename,"./widths/a_%Lf_m_%d_n_%d_widths.out",a0[0],m,n);
         flw = fopen(widthFilename,"w");
         }
         
         //printf("(shinox,shinoy)=(%Lf,%Lf)\n",shinox,shinoy);
+        //This is a macro to go to the next line in the file.
         NL(fl,dummy);
         NL(fl,dummy);
+        NL(fl,dummy);
+
         fscanf(fl,"# sln=%d , maxbrack=%d",&sln,&nRoots); NL(fl,dummy);
         //printf("(a,b) = (%Lf,%Lf) # sln=%d , maxbrack=%d\n",a0[i],b0[i],sln,nRoots);
         if (nRoots>2) {
@@ -83,18 +91,19 @@ int main(int argc, const char * argv[]) {
             printf("There were more than 2 roots for (a,b)=(%Lf,%Lf)\n",a0[i],b0[i]);
             break;
         }
-        else if(map == &ntmapstep){
-            findShinoOrbitYonSLN(a0[i], b0[i], &shinox, &shinoy);
-        }
-        else{
-            shinoy=0;
-        }
+//        else if(map == &ntmapstep){
+//            findShinoOrbitYonSLN(a0[i], b0[i], &shinox, &shinoy);
+//        }
+//        else{
+//            shinoy[i]=0;
+//        }
         for(j=0;j<nRoots;j++)
         {
             fscanf(fl,"%La (%Le) %La (%Le) %Lf",&x0[i][j],&dum1,&y0[i][j],&dum2,&residue[i][j]);   NL(fl,dummy);
             printf("Root was (x,y)=(%4Lf,%4Lf)\n",x0[i][j],y0[i][j]);
-            updown[i][j] = (y0[i][j]>shinoy) ? 1 : 0;
+            updown[i][j] = (y0[i][j]>shinoy[i]) ? 1 : 0;
             //Now to find the winding number as we move up and down.
+            //Most of the calculation is contained within ResonanceWidths
             if (residue[i][j]<1 && residue[i][j] > 0)   ResonanceWidths(a0[i],b0[i],x0[i][j],y0[i][j],m,n,updown[i][j],&widths[i][updown[i][j]]);
         }
         
@@ -124,6 +133,10 @@ void find_om(long double a0, long double b0, long double x0, long double y0, lon
              int *ncut, long double *diffom, int *ndiffom,
              long double *maxom, int *nmaxom, long double *minom, int *nminom)
 {
+    //Winding number is a sequence defined as x_n/n.  We iterate the initial point.  If the omega is sufficiently close (windAccuracy) to the previous one we enter the convergence range.  Continue to iterate the sequence.  If subsequent elements remain close to one another for dn iterations return this as the winding number.  If not, reset the process and look for another candidate.
+    
+    //I think this might be better as a sort of cauchy convergence.  So check if all elements within dn are sufficiently close.  Otherwise we could still be seeing drift in the winding number.  I think this becomes very importnat when I am considering how the sequence converges within a resonance. 7/31/17
+    
     int i;
     long double omo, x=x0, y=y0;
     
