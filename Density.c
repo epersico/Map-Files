@@ -68,6 +68,7 @@ int main(int argc, char **argv)
 aStepSize = (aMax/(long double)n_aSteps);
 bStepSize = (bMax/(long double)n_bSteps);
 
+//Here are some fucking test comments fuck you github. 
 
 for (i_a=1;i_a<=n_aSteps;i_a++) { //Start of "a" loop
 	if(n_aSteps ==1 ) a0 = aStart;
