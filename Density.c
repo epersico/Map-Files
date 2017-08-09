@@ -560,7 +560,8 @@ long double residue(int ii, int *iieq, int *iiter, long double *tmp)
 
   if (outfiles>1) fprintf(fl2,"%14.8Lf %14.8Lf ", qq, pp);
   map(&qq, &pp, a0, b0); qq=remainderl(qq,1.0L);
-  fprintf(fl2,"%14.4Le %14.4Le\n\n", qq-findx0(yorbs[i], a0, sln), pp-yorbs[i]);
+  //This next line prints the distance from the starting point to see if the orbits are actually periodic.
+  if (outfiles>1) fprintf(fl2,"%14.4Le %14.4Le\n\n", qq-findx0(yorbs[i], a0, sln), pp-yorbs[i]);
 
   return (2.0L-lm[0][0]-lm[1][1])/4.0L;
 }

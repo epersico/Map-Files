@@ -12,7 +12,7 @@
 -1.0000000000	! lower end of zbrak interval (if bracs>0: only for first b, then zbrac)
 1.00000000000	! upper end of zbrak interval (if <= lower: zbrac with b=0 start guess)
 100		! Base divisions for zbrak interval 
-2		! number of outfiles (1: basics, 2: full m/n orbits, 3: full ?/n orbits
+2	! number of outfiles (1: basics, 2: full m/n orbits, 3: full ?/n orbits
 ./data/orbits_3.out
 ./data/orbits_3.orbits
 /tmp/findallorbits.allorbits
