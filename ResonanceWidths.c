@@ -14,7 +14,7 @@
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
-#define nParameters 1000
+#define nParameters 9
 #define pi  3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679L
 
 
@@ -43,7 +43,7 @@ FILE *fl,*flw, *fld; //fl is the file for the individual winding number, flw is 
 int main(int argc, const char * argv[]) {
     
     //Start of the program.  Load in the data from Density.c  This has a particular format.
-    sprintf(infilename,"./data/orbits_3_5_a_64.out");
+    sprintf(infilename,"./data/orbits_test.out");
     char dummy;
 //    pi=4.0L*atanl(1.0L); //Change this to be a full typed out version of pi.
     int n,m;//nParameters=n_bsteps;
@@ -233,7 +233,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
     find_om(a, b, x0, y0, &yf, &omega0, &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
     
     for(i=0;i<2*n_ysteps;i++){
-        y += stepsize;
+        
         find_om(a, b, x0, y, &yf, &omega[i][updown], &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
         
         if(fabsl(omega[i][updown] - omega0)< 0.1){
@@ -250,6 +250,7 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
             *width = fabsl(yHigh-yLow);
             //*width = (long double)stepsize*widthCount;
         }
+        y += stepsize;
     }
     if (error >= 2) {
         printf("Width was, %Lf\n",*width);

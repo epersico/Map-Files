@@ -11,10 +11,13 @@
 #include <string.h>
 #include <math.h>
 
+#include <omp.h>
+
+
 //
 #define NL(flnm,dumch) {do dumch=fgetc(flnm); while (dumch!='\n' && dumch!=EOF);}
 #define UNDEFINED -123456789.0
-#define nParameters 1000
+#define nParameters 50
 #define pi  3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679L
 
 
@@ -27,13 +30,14 @@ void find_om(long double, long double, long double, long double, long double *, 
 void assignshino(long double, long double, int, long double *, long double *);
 void findShinoOrbitYonSLN(long double, long double, long double *,long double *);
 void ResonanceWidths(long double, long double, long double, long double,int, int, int, long double *);
+long double findWidth(long double *, int);
 
 
 
 long double cutoff,dn,speedup;
 //long double pi;  //This was from before I did a #define of pi.
 int nMax;  //The highest value for the denominator
-int n_ysteps=2500;  //The numbers of steps above and below the root to search for a resonance width
+int n_ysteps=10000;  //The numbers of steps above and below the root to search for a resonance width
 long double yRange = 1e-1;  //The distance over which to search above and below
 long double windAccuracy = 1.0e-4L;  //The winding number must stay within this distance to be called convergent
 int n_bsteps=100;  // The number of b values anticipated from the Density.c output file
@@ -41,9 +45,11 @@ char infilename[64],outfilename[64], widthFilename[60];
 FILE *fl,*flw, *fld; //fl is the file for the individual winding number, flw is the one just for the widths.
 
 int main(int argc, const char * argv[]) {
-    
+  
+
+
     //Start of the program.  Load in the data from Density.c  This has a particular format.
-    sprintf(infilename,"./data/orbits_3_5_a_64.out");
+    sprintf(infilename,"./data/orbits_21_34_a_64.out");
     char dummy;
 //    pi=4.0L*atanl(1.0L); //Change this to be a full typed out version of pi.
     int n,m;//nParameters=n_bsteps;
@@ -52,9 +58,9 @@ int main(int argc, const char * argv[]) {
     long double widths[nParameters][2];
     int sln, nRoots,i,j,updown[nParameters][2];
     long double shinox[nParameters],shinoy[nParameters],dum1,dum2;
-    nMax = 1.0e5L; //Total number of iterations allowed for the winding number to converge
-    cutoff = 1.0e-3L; //The winding number needs to stay within this amount to call it converged
-    dn=1.0e3L;  //How long it needs to stay the same to be called convergent
+    nMax = 5.0e5L; //Total number of iterations allowed for the winding number to converge
+    cutoff = 1.0e-4L; //The winding number needs to stay within this amount to call it converged
+    dn=2.0e3L;  //How long it needs to stay the same to be called convergent
     
     // Uncomment the map I want
     map = &ntmapstep;
@@ -66,7 +72,8 @@ int main(int argc, const char * argv[]) {
 
     //Loop through the input file.  The organization is that for each (a,b) parameter pair there will be a number of roots to iterate through.
     for(i=0;i<nParameters;i++){
-        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)",&a0[i],&dum1,&b0[i],&dum2);    NL(fl,dummy);         printf("(a,b) = (%Lf,%Lf)\n",a0[i],b0[i]);
+        fscanf(fl,"# a: %La (%Le) , b: %La (%Le)",&a0[i],&dum1,&b0[i],&dum2);    NL(fl,dummy);         
+        printf("(a,b) = (%Lf,%Lf)\n",a0[i],b0[i]);
         fscanf(fl, "# omega:   (m =   %d) / (n =  %d)\n",&m,&n);
         //printf("(a,b)=(%Lf,%Lf)\n",a0[i],b0[i]);
         fscanf(fl,"# a: %La (%Le) , b: %La (%Le)",&shinox[i],&dum1,&shinoy[i],&dum2);  NL(fl,dummy);
@@ -110,8 +117,7 @@ int main(int argc, const char * argv[]) {
         NL(fl,dummy);
 
     }
-    
-    
+
 
     
     return 0;
@@ -211,11 +217,12 @@ void findShinoOrbitYonSLN(long double a0, long double b0, long double *x ,long d
 void ResonanceWidths(long double a, long double b, long double x0, long double y0, int m, int n, int updown,long double *width){
     int i,ncutoff,ndom,nomin,nomax,error=0,widthCount=0;
     long double stepsize = yRange/n_ysteps,yf,omega[2*n_ysteps][2],omega0,dom,omax,omin,y=y0-stepsize*n_ysteps;
+    long double y_widths[2*n_ysteps];
     char filename[60]="./widths/",astr[60],bstr[60],mstr[60],nstr[60],updownstr[60];
     FILE *fl;
     
     long double yLow=y, yHigh=y0+stepsize*n_ysteps;
-    
+    long double yMin = y0-stepsize*n_ysteps;
     sprintf(astr,"a_%Lf_",a);
     sprintf(bstr,"b_%Lf_",b);
     sprintf(mstr,"m_%d_",m);
@@ -232,32 +239,42 @@ void ResonanceWidths(long double a, long double b, long double x0, long double y
     
     find_om(a, b, x0, y0, &yf, &omega0, &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
     
+    omp_set_num_threads(4);
+    #pragma omp parallel for private(y,ncutoff,dom,ndom,omax,nomax,omin,nomin) reduction(+:error) schedule(dynamic)
     for(i=0;i<2*n_ysteps;i++){
-        y += stepsize;
+
+        y = y0 + i*stepsize-stepsize*n_ysteps;
         find_om(a, b, x0, y, &yf, &omega[i][updown], &ncutoff, &dom, &ndom, &omax, &nomax, &omin, &nomin);
         
         if(fabsl(omega[i][updown] - omega0)< 0.1){
+
+            #pragma omp critical
             fprintf(fl,"%21.17Lf %21.17Lf\n",i*stepsize-stepsize*n_ysteps, omega[i][updown]);
-            if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i<=n_ysteps && error == 0 ){
-                yLow = y; error=1; widthCount++;
-                //printf("Bottom bound was %Lf\n",yLow);
+
+            if(  fabsl(omega[i][updown]-omega0) < windAccuracy ){
+                y_widths[i] = y;
+                error++;
             }
-            if(  fabsl(omega[i][updown]-omega0) < windAccuracy  &&  i>n_ysteps && error != 0){
-                yHigh = y;
-                error+=1;
-                //printf("Upper bound was %Lf\n",yHigh);
-            }
-            *width = fabsl(yHigh-yLow);
-            //*width = (long double)stepsize*widthCount;
         }
     }
+
+    // printf("error was %d\n",error);
     if (error >= 2) {
+        *width = findWidth(y_widths,2*n_ysteps);
         printf("Width was, %Lf\n",*width);
         fprintf(flw,"%21.17Lf %21.17Lf\n",b,*width);
-        error +=1;
     }
     fclose(fl);
 }
 
+long double findWidth(long double *arr, int arrSize){
+    long double min=10000;
+    long double max=-100000;
 
+    for(int i = 0; i < arrSize;i++){
+        if(arr[i]<min && arr[i] != 0) min = arr[i];
+        if(arr[i]>max && arr[i] != 0) max = arr[i];
+    }
+    return fabsl(max-min);
+}
 
